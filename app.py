@@ -3,6 +3,9 @@ import json
 from PIL import Image
 import os
 
+st.set_page_config(page_title="Jovem Conectado - IASD", layout="wide")
+
+
 # Load weekly content
 with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
     conteudo = json.load(file)
@@ -12,7 +15,7 @@ st.write(conteudo)
 
 
 # App title and layout
-st.set_page_config(page_title="Jovem Conectado - IASD", layout="wide")
+
 st.title("🙌 Jovem Conectado - IASD")
 
 # Tabs (Abas)
