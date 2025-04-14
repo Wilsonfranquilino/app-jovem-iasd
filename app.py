@@ -10,8 +10,7 @@ st.set_page_config(page_title="Jovem Conectado - IASD", layout="wide")
 with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
     conteudo = json.load(file)
 
-    st.write("✅ JSON carregado com sucesso:")
-st.write(conteudo)
+    
 
 
 # App title and layout
