@@ -32,7 +32,8 @@ with tab1:
     st.write(conteudo['devocional']['texto'])
 
     st.header("🎯 Desafio Espiritual")
-    st.info(conteudo['desafio'])
+    st.info(conteudo['profissional']['desafio'])
+
 
 # --- Aba 2: Personagem Bíblico ---
 with tab2:
