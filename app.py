@@ -5,16 +5,13 @@ import os
 
 st.set_page_config(page_title="Jovem Conectado - IASD", layout="wide")
 
-
 # Load weekly content
 with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
     conteudo = json.load(file)
-
-    
+    st.write("DEBUG - Conteúdo carregado:", conteudo['desafio_espiritual'])
 
 
 # App title and layout
-
 st.title("🙌 Jovem Conectado - IASD")
 
 # Tabs (Abas)
@@ -31,8 +28,7 @@ with tab1:
     st.write(conteudo['devocional']['texto'])
 
     st.header("🎯 Desafio Espiritual")
-    st.info(conteudo['profissional']['desafio'])
-
+    st.info(conteudo['desafio_espiritual'])
 
 # --- Aba 2: Personagem Bíblico ---
 with tab2:
