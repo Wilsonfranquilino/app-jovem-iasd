@@ -9,12 +9,34 @@ st.set_page_config(page_title="Conectados na Lição - IASD Distrito Mantena", l
 with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
     conteudo = json.load(file)
 
-
 # App title and layout
 st.title("🙌 Conectados na Lição - IASD Distrito Mantena")
 
 # Tabs (Abas)
-tab1, tab2, tab3, tab4 = st.tabs(["Fé e Inspiração", "Personagem da Semana", "Motivação", "Vida Profissional"])
+tab0, tab1, tab2, tab3, tab4 = st.tabs(["Lição Completa (PDF)", "Fé e Inspiração", "Personagem da Semana", "Motivação", "Vida Profissional"])
+
+# --- Aba 0: Lição Completa ---
+with tab0:
+    st.header("📄 Lição Completa da Semana")
+    st.info(
+        "⚡ **Atenção!**\n\n"
+        "Para melhor leitura e experiência, recomendamos baixar o PDF da lição completa da semana. "
+        "Assim você poderá ler com calma, marcar anotações e ter sempre à mão, mesmo sem internet. "
+        "Clique no botão **📥 Baixar Lição em PDF** abaixo para baixar agora mesmo!"
+    )
+
+    pdf_path = "pdf/licao_semana.pdf"
+
+    if os.path.exists(pdf_path):
+        with open(pdf_path, "rb") as f:
+            st.download_button(
+                label="📥 Baixar Lição em PDF",
+                data=f,
+                file_name="licao_semana.pdf",
+                mime="application/pdf"
+            )
+    else:
+        st.warning("Arquivo da lição não encontrado. Por favor, envie o PDF para a pasta correta.")
 
 # --- Aba 1: Fé e Inspiração ---
 with tab1:
