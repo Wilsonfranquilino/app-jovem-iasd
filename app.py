@@ -3,7 +3,7 @@ import json
 from PIL import Image
 import os
 
-st.set_page_config(page_title="Jovem Conectado - IASD", layout="wide")
+st.set_page_config(page_title="Conectados na Lição - IASD Distrito Mantena", layout="wide")
 
 # Load weekly content
 with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
@@ -11,7 +11,7 @@ with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
 
 
 # App title and layout
-st.title("🙌 Jovem Conectado - IASD")
+st.title("🙌 Conectados na Lição - IASD Distrito Mantena")
 
 # Tabs (Abas)
 tab1, tab2, tab3, tab4 = st.tabs(["Fé e Inspiração", "Personagem da Semana", "Motivação", "Vida Profissional"])
