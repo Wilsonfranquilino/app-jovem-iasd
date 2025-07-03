@@ -5,18 +5,21 @@ import os
 
 st.set_page_config(page_title="Conectados na Lição - IASD Distrito Mantena", layout="wide")
 
-# Load weekly content
+# Carregar conteúdo do JSON
 with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
     conteudo = json.load(file)
 
-# App title and layout
+# Título principal
 st.title("🙌 Conectados na Lição - IASD Distrito Mantena")
 
-# Tabs (Abas)
-tab0, tab1, tab2, tab3, tab4 = st.tabs(["Lição Completa (PDF)", "Fé e Inspiração", "Personagem da Semana", "Motivação", "Vida Profissional"])
+# Menu lateral para navegação
+page = st.sidebar.radio(
+    "📄 Menu de Navegação",
+    ["Lição em PDF", "Fé e Inspiração", "Personagem da Semana", "Motivação e Reflexão", "Vida Profissional"]
+)
 
-# --- Aba 0: Lição Completa ---
-with tab0:
+# --- Lição em PDF ---
+if page == "Lição em PDF":
     st.header("📄 Lição Completa da Semana")
     st.info(
         "⚡ **Atenção!**\n\n"
@@ -38,8 +41,8 @@ with tab0:
     else:
         st.warning("Arquivo da lição não encontrado. Por favor, envie o PDF para a pasta correta.")
 
-# --- Aba 1: Fé e Inspiração ---
-with tab1:
+# --- Fé e Inspiração ---
+elif page == "Fé e Inspiração":
     st.header("📖 Versículo da Semana")
     st.markdown(f"**{conteudo['versiculo']['referencia']}**")
     st.success(conteudo['versiculo']['texto'])
@@ -51,9 +54,9 @@ with tab1:
     st.header("🎯 Desafio Espiritual")
     st.info(conteudo['desafio_espiritual'])
 
-# --- Aba 2: Personagem Bíblico ---
-with tab2:
-    st.header(f"🧍 Personagem da Semana: {conteudo['personagem']['nome']}")
+# --- Personagem da Semana ---
+elif page == "Personagem da Semana":
+    st.header(f"🧍 Personagem: {conteudo['personagem']['nome']}")
 
     img_path = f"img/{conteudo['personagem']['nome'].lower()}.png"
     if os.path.exists(img_path):
@@ -68,17 +71,17 @@ with tab2:
     st.subheader("📌 Lição para hoje")
     st.info(conteudo['personagem']['lição'])
 
-# --- Aba 3: Motivação e Vida Real ---
-with tab3:
-    st.header("💬 Frase Motivacional da Semana")
+# --- Motivação e Reflexão ---
+elif page == "Motivação e Reflexão":
+    st.header("💬 Frase Motivacional")
     st.success(conteudo['motivacional']['frase'])
 
     st.header("📌 Reflexão para o dia a dia")
     st.write(conteudo['reflexao'])
 
-# --- Aba 4: Vida Profissional e Propósito ---
-with tab4:
-    st.header("🚀 Dica Profissional da Semana")
+# --- Vida Profissional ---
+elif page == "Vida Profissional":
+    st.header("🚀 Dica Profissional")
     st.write(conteudo['profissional']['dica'])
 
     st.header("📖 Versículo aplicado à carreira")
