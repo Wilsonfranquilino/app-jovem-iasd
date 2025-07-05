@@ -15,7 +15,7 @@ st.title("🙌 Conectados na Lição - IASD Distrito Mantena")
 # Menu lateral para navegação
 page = st.sidebar.radio(
     "📄 Menu de Navegação",
-    ["Lição em PDF", "Fé e Inspiração", "Personagem da Semana", "Motivação e Reflexão", "Vida Profissional"]
+    ["Lição em PDF", "Esboço da Lição", "Fé e Inspiração", "Personagem da Semana", "Motivação e Reflexão", "Vida Profissional"]
 )
 
 # --- Lição em PDF ---
@@ -41,60 +41,10 @@ if page == "Lição em PDF":
     else:
         st.warning("Arquivo da lição não encontrado. Por favor, envie o PDF para a pasta correta.")
 
-    # 👇 Esboço Técnico
-    st.header("🗒️ Esboço Técnico da Lição")
-    st.markdown("""
-    ## ✨ **Esboço Técnico — Lição 1: Êxodo, A Jornada do Povo de Deus**
-
-    ### 📌 1. Introdução ao livro de Êxodo
-    - Segunda parte do Pentateuco (Torá).
-    - "Êxodo" vem do grego *Exodos* = "saída" ou "caminho para fora" (Êx 1:1-7).
-    - Continuação direta do final de Gênesis (Gn 46–50).
-
-    ### 🏺 2. Contexto histórico
-    - Descida da família de José ao Egito (Gn 46).
-    - Crescimento e multiplicação do povo (Êx 1:7).
-    - Surgimento de novo faraó que não conhecia José (Êx 1:8).
-
-    ### 👑 3. Opressão dos hebreus
-    - Escravização e trabalhos forçados (Êx 1:11-14).
-    - Decreto de morte para os meninos hebreus (Êx 1:15-22).
-
-    ### 🧑‍🍼 4. As parteiras Sifrá e Puá
-    - Resistiram ao faraó e salvaram os bebês (Êx 1:15-21).
-
-    ### 👶 5. Nascimento de Moisés
-    - Escondido por três meses (Êx 2:1-2).
-    - Colocado no cesto no Nilo (Êx 2:3-4).
-    - Encontrado e adotado pela filha do faraó (Êx 2:5-10).
-
-    ### 🏺 6. Significado do nome Moisés
-    - "Moisés" significa "tirado das águas" (Êx 2:10).
-
-    ### 🗺️ 7. Moisés no palácio
-    - Criado como príncipe no Egito (At 7:22).
-    - Educação egípcia estratégica para liderança futura.
-
-    ### 💬 8. Deus ouve o clamor do povo
-    - Deus vê a aflição (Êx 2:23-25).
-    - Lembra da aliança com Abraão, Isaque e Jacó (Êx 2:24).
-
-    ### 🛡️ 9. O Deus do Êxodo
-    - Deus compassivo, gracioso, paciente, cheio de amor e fidelidade (Êx 34:6-7).
-    - Libertador e guia do povo.
-
-    ### ⚔️ 10. Faraós mencionados indiretamente
-    - Nenhum faraó nomeado no texto.
-    - Possíveis identificações históricas:
-      - Faraó da opressão: Amenófis I.
-      - Faraó do decreto de morte: Tutmés I.
-      - Faraó do Êxodo: Tutmés III.
-
-    ### 📄 Resumo final
-    - Êxodo marca o nascimento da nação israelita.
-    - Preservação de Moisés como líder.
-    - Ênfase na fidelidade de Deus à aliança.
-    """)
+# --- Esboço da Lição ---
+elif page == "Esboço da Lição":
+    st.header("📝 Esboço da Lição")
+    st.markdown(conteudo["esboco"])
 
 # --- Fé e Inspiração ---
 elif page == "Fé e Inspiração":
