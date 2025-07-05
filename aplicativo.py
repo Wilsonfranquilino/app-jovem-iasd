@@ -9,27 +9,24 @@ st.set_page_config(page_title="Conectados na Lição - IASD Distrito Mantena", l
 with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
     conteudo = json.load(file)
 
-# Título principal
 st.title("🙌 Conectados na Lição - IASD Distrito Mantena")
 
 # Menu lateral para navegação
 page = st.sidebar.radio(
     "📄 Menu de Navegação",
-    ["Lição em PDF", "Esboço da Lição", "Fé e Inspiração", "Personagem da Semana", "Motivação e Reflexão", "Vida Profissional"]
+    ["Lição em PDF", "Fé e Inspiração", "Personagem da Semana", "Motivação e Reflexão", "Vida Profissional"]
 )
 
-# --- Lição em PDF ---
+# --- Aba: Lição em PDF ---
 if page == "Lição em PDF":
     st.header("📄 Lição Completa da Semana")
     st.info(
         "⚡ **Atenção!**\n\n"
         "Para melhor leitura e experiência, recomendamos baixar o PDF da lição completa da semana. "
-        "Assim você poderá ler com calma, marcar anotações e ter sempre à mão, mesmo sem internet. "
-        "Clique no botão **📥 Baixar Lição em PDF** abaixo para baixar agora mesmo!"
+        "Assim você poderá ler com calma, marcar anotações e ter sempre à mão, mesmo sem internet."
     )
 
     pdf_path = "pdf/licao_semana.pdf"
-
     if os.path.exists(pdf_path):
         with open(pdf_path, "rb") as f:
             st.download_button(
@@ -41,12 +38,13 @@ if page == "Lição em PDF":
     else:
         st.warning("Arquivo da lição não encontrado. Por favor, envie o PDF para a pasta correta.")
 
-# --- Esboço da Lição ---
-elif page == "Esboço da Lição":
-    st.header("📝 Esboço da Lição")
-    st.markdown(conteudo["esboco"])
+    # Esboço técnico
+    st.header("🗒️ Esboço Técnico")
+    st.subheader(conteudo["esboco"]["titulo"])
+    for topico in conteudo["esboco"]["topicos"]:
+        st.write(f"- {topico}")
 
-# --- Fé e Inspiração ---
+# --- Aba: Fé e Inspiração ---
 elif page == "Fé e Inspiração":
     st.header("📖 Versículo da Semana")
     st.markdown(f"**{conteudo['versiculo']['referencia']}**")
@@ -59,7 +57,7 @@ elif page == "Fé e Inspiração":
     st.header("🎯 Desafio Espiritual")
     st.info(conteudo['desafio_espiritual'])
 
-# --- Personagem da Semana ---
+# --- Aba: Personagem da Semana ---
 elif page == "Personagem da Semana":
     st.header(f"🧍 Personagem: {conteudo['personagem']['nome']}")
 
@@ -76,7 +74,7 @@ elif page == "Personagem da Semana":
     st.subheader("📌 Lição para hoje")
     st.info(conteudo['personagem']['lição'])
 
-# --- Motivação e Reflexão ---
+# --- Aba: Motivação e Reflexão ---
 elif page == "Motivação e Reflexão":
     st.header("💬 Frase Motivacional")
     st.success(conteudo['motivacional']['frase'])
@@ -84,7 +82,7 @@ elif page == "Motivação e Reflexão":
     st.header("📌 Reflexão para o dia a dia")
     st.write(conteudo['reflexao'])
 
-# --- Vida Profissional ---
+# --- Aba: Vida Profissional ---
 elif page == "Vida Profissional":
     st.header("🚀 Dica Profissional")
     st.write(conteudo['profissional']['dica'])
