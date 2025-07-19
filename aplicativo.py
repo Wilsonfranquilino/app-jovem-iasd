@@ -11,6 +11,13 @@ with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
 
 st.title("🙌 Conectados na Lição - IASD Distrito Mantena")
 
+# Aviso para celulares sobre o menu lateral
+st.markdown("""
+<div style='background-color: #f0f2f6; padding: 10px; border-radius: 8px; font-size: 16px'>
+📱 <strong>Para celulares:</strong> Toque no <strong>menu ☰ no canto superior esquerdo</strong> para navegar entre as abas do aplicativo. 👉
+</div>
+""", unsafe_allow_html=True)
+
 # Menu lateral para navegação
 page = st.sidebar.radio(
     "📄 Menu de Navegação",
@@ -35,61 +42,4 @@ if page == "Lição em PDF":
                 file_name="licao_semana.pdf",
                 mime="application/pdf"
             )
-    else:
-        st.warning("Arquivo da lição não encontrado. Por favor, envie o PDF para a pasta correta.")
-
-    # Esboço técnico
-    st.header("🗒️ Esboço Técnico")
-    st.subheader(conteudo["esboco"]["titulo"])
-    for topico in conteudo["esboco"]["topicos"]:
-        st.write(f"- {topico}")
-
-# --- Aba: Fé e Inspiração ---
-elif page == "Fé e Inspiração":
-    st.header("📖 Versículo da Semana")
-    st.markdown(f"**{conteudo['versiculo']['referencia']}**")
-    st.success(conteudo['versiculo']['texto'])
-
-    st.header("🙏 Devocional")
-    st.subheader(conteudo['devocional']['titulo'])
-    st.markdown(f"<div style='text-align: justify'>{conteudo['devocional']['texto']}</div>", unsafe_allow_html=True)
-
-    st.header("🎯 Desafio Espiritual")
-    st.info(conteudo['desafio_espiritual'])
-
-# --- Aba: Personagem da Semana ---
-elif page == "Personagem da Semana":
-    st.header(f"🧍 Personagem: {conteudo['personagem']['nome']}")
-
-    img_path = f"img/{conteudo['personagem']['nome'].lower()}.png"
-    if os.path.exists(img_path):
-        st.image(Image.open(img_path), width=300)
-
-    st.subheader("✅ Qualidades")
-    st.write(conteudo['personagem']['qualidades'])
-
-    st.subheader("⚠️ Fraquezas")
-    st.write(conteudo['personagem']['fraquezas'])
-
-    st.subheader("📌 Lição para hoje")
-    st.info(conteudo['personagem']['lição'])
-
-# --- Aba: Motivação e Reflexão ---
-elif page == "Motivação e Reflexão":
-    st.header("💬 Frase Motivacional")
-    st.success(conteudo['motivacional']['frase'])
-
-    st.header("📌 Reflexão para o dia a dia")
-    st.markdown(f"<div style='text-align: justify'>{conteudo['reflexao']}</div>", unsafe_allow_html=True)
-
-# --- Aba: Vida Profissional ---
-elif page == "Vida Profissional":
-    st.header("🚀 Dica Profissional")
-    st.markdown(f"<div style='text-align: justify'>{conteudo['profissional']['dica']}</div>", unsafe_allow_html=True)
-
-    st.header("📖 Versículo aplicado à carreira")
-    st.markdown(f"**{conteudo['profissional']['versiculo_ref']}**")
-    st.info(conteudo['profissional']['versiculo_texto'])
-
-    st.header("🎯 Mini Desafio")
-    st.warning(conteudo['profissional']['desafio'])
+    else
