@@ -1,89 +1,41 @@
 import streamlit as st
 import json
 
-# Configuração inicial
-st.set_page_config(layout="wide")
-
-# CSS para justificação de texto
-def set_custom_css():
-    st.markdown("""
-    <style>
-    .justificado {
-        text-align: justify;
-    }
-    </style>
-    """, unsafe_allow_html=True)
-
-set_custom_css()
-
-# Leitura do conteúdo
-with open("conteudo_semana.json", "r", encoding="utf-8") as f:
+# Caminho corrigido para o arquivo JSON
+with open("data/conteudo_semana.json", "r", encoding="utf-8") as f:
     conteudo = json.load(f)
 
-# Abas do aplicativo
-abas = st.tabs([
-    "📖 Versículo da Semana",
-    "🙏 Devocional",
-    "🧔‍♂️ Personagem Bíblico",
-    "💬 Frase Motivacional",
-    "🤔 Reflexão",
-    "💼 Vida Profissional",
-    "📚 Esboço Técnico"
-])
+st.set_page_config(page_title="Jovem Conectado - IASD", layout="wide")
 
-# 1. Versículo da Semana
-with abas[0]:
-    st.header("📖 Versículo da Semana")
-    st.subheader(conteudo["versiculo"]["referencia"])
-    st.markdown(f"<div class='justificado'>{conteudo['versiculo']['texto']}</div>", unsafe_allow_html=True)
+st.title("📖 Lição da Semana")
+st.markdown(f"<p style='text-align: justify;'><strong><u>Versículo:</u></strong> <br><em>\"{conteudo['versiculo']['texto']}\"</em><br>📍 <strong>{conteudo['versiculo']['referencia']}</strong></p>", unsafe_allow_html=True)
 
-# 2. Devocional
-with abas[1]:
-    st.header("🙏 Devocional")
-    st.subheader(conteudo["devocional"]["titulo"])
-    st.markdown(f"<div class='justificado'>{conteudo['devocional']['texto']}</div>", unsafe_allow_html=True)
+st.header("🙏 Devocional da Semana")
+st.markdown(f"<h4>{conteudo['devocional']['titulo']}</h4>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align: justify;'>{conteudo['devocional']['texto']}</p>", unsafe_allow_html=True)
 
-    st.markdown("---")
-    st.subheader("📌 Desafio Espiritual")
-    st.markdown(f"<div class='justificado'>{conteudo['desafio_espiritual']}</div>", unsafe_allow_html=True)
+st.header("📌 Desafio Espiritual")
+st.markdown(f"<p style='text-align: justify;'>{conteudo['desafio_espiritual']}</p>", unsafe_allow_html=True)
 
-# 3. Personagem Bíblico
-with abas[2]:
-    st.header("🧔‍♂️ Personagem Bíblico: " + conteudo["personagem"]["nome"])
-    
-    if "imagem" in conteudo["personagem"]:
-        st.image(conteudo["personagem"]["imagem"], caption=conteudo["personagem"]["nome"])
+st.header("🧔‍♂️ Personagem: " + conteudo['personagem']['nome'])
+st.subheader("✅ Qualidades")
+st.markdown(f"<p style='text-align: justify;'>{conteudo['personagem']['qualidades']}</p>", unsafe_allow_html=True)
+st.subheader("⚠️ Fraquezas")
+st.markdown(f"<p style='text-align: justify;'>{conteudo['personagem']['fraquezas']}</p>", unsafe_allow_html=True)
+st.subheader("📌 Lição para hoje")
+st.markdown(f"<div style='background-color: #eaf4ff; padding: 10px; border-radius: 8px; text-align: justify;'>{conteudo['personagem']['lição']}</div>", unsafe_allow_html=True)
 
-    st.markdown("**Qualidades:** " + conteudo["personagem"]["qualidades"])
-    st.markdown("**Fraquezas:** " + conteudo["personagem"]["fraquezas"])
-    st.markdown(f"<div class='justificado'><strong>Lição:</strong> {conteudo['personagem']['lição']}</div>", unsafe_allow_html=True)
+st.header("💬 Frase Motivacional")
+st.markdown(f"<p style='text-align: justify;'><em>{conteudo['motivacional']['frase']}</em></p>", unsafe_allow_html=True)
 
-# 4. Frase Motivacional
-with abas[3]:
-    st.header("💬 Frase Motivacional")
-    st.markdown(f"<div class='justificado'><em>{conteudo['motivacional']['frase']}</em></div>", unsafe_allow_html=True)
+st.header("🤔 Reflexão da Semana")
+st.markdown(f"<p style='text-align: justify;'>{conteudo['reflexao']}</p>", unsafe_allow_html=True)
 
-# 5. Reflexão
-with abas[4]:
-    st.header("🤔 Reflexão")
-    st.markdown(f"<div class='justificado'>{conteudo['reflexao']}</div>", unsafe_allow_html=True)
+st.header("💼 Vida Profissional")
+st.markdown(f"<strong>Versículo:</strong> <br><em>\"{conteudo['profissional']['versiculo_texto']}\"</em><br>📍 <strong>{conteudo['profissional']['versiculo_ref']}</strong>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align: justify;'><strong>Dica:</strong> {conteudo['profissional']['dica']}</p>", unsafe_allow_html=True)
+st.markdown(f"<p style='text-align: justify;'><strong>Desafio:</strong> {conteudo['profissional']['desafio']}</p>", unsafe_allow_html=True)
 
-# 6. Vida Profissional
-with abas[5]:
-    st.header("💼 Vida Profissional")
-    st.markdown(f"<div class='justificado'>{conteudo['profissional']['dica']}</div>", unsafe_allow_html=True)
-
-    st.markdown("---")
-    st.subheader("📖 Versículo")
-    st.markdown(f"**{conteudo['profissional']['versiculo_ref']}**")
-    st.markdown(f"<div class='justificado'>{conteudo['profissional']['versiculo_texto']}</div>", unsafe_allow_html=True)
-
-    st.markdown("---")
-    st.subheader("🎯 Desafio Profissional")
-    st.markdown(f"<div class='justificado'>{conteudo['profissional']['desafio']}</div>", unsafe_allow_html=True)
-
-# 7. Esboço Técnico
-with abas[6]:
-    st.header(conteudo["esboco"]["titulo"])
-    for topico in conteudo["esboco"]["topicos"]:
-        st.markdown(f"- {topico}")
+st.header("📑 Esboço Técnico")
+for topico in conteudo["esboco"]["topicos"]:
+    st.markdown(f"- {topico}")
