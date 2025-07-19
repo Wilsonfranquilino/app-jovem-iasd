@@ -1,95 +1,89 @@
 import streamlit as st
 import json
-from PIL import Image
-import os
 
-st.set_page_config(page_title="Conectados na Lição - IASD Distrito Mantena", layout="wide")
+# Configuração inicial
+st.set_page_config(layout="wide")
 
-# Carregar conteúdo do JSON
-with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
-    conteudo = json.load(file)
+# CSS para justificação de texto
+def set_custom_css():
+    st.markdown("""
+    <style>
+    .justificado {
+        text-align: justify;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-st.title("🙌 Conectados na Lição - IASD Distrito Mantena")
+set_custom_css()
 
-# Menu lateral para navegação
-page = st.sidebar.radio(
-    "📄 Menu de Navegação",
-    ["Lição em PDF", "Fé e Inspiração", "Personagem da Semana", "Motivação e Reflexão", "Vida Profissional"]
-)
+# Leitura do conteúdo
+with open("conteudo_semana.json", "r", encoding="utf-8") as f:
+    conteudo = json.load(f)
 
-# --- Aba: Lição em PDF ---
-if page == "Lição em PDF":
-    st.header("📄 Lição Completa da Semana")
-    st.info(
-        "⚡ **Atenção!**\n\n"
-        "Para melhor leitura e experiência, recomendamos baixar o PDF da lição completa da semana. "
-        "Assim você poderá ler com calma, marcar anotações e ter sempre à mão, mesmo sem internet."
-    )
+# Abas do aplicativo
+abas = st.tabs([
+    "📖 Versículo da Semana",
+    "🙏 Devocional",
+    "🧔‍♂️ Personagem Bíblico",
+    "💬 Frase Motivacional",
+    "🤔 Reflexão",
+    "💼 Vida Profissional",
+    "📚 Esboço Técnico"
+])
 
-    pdf_path = "pdf/licao_semana.pdf"
-    if os.path.exists(pdf_path):
-        with open(pdf_path, "rb") as f:
-            st.download_button(
-                label="📥 Baixar Lição em PDF",
-                data=f,
-                file_name="licao_semana.pdf",
-                mime="application/pdf"
-            )
-    else:
-        st.warning("Arquivo da lição não encontrado. Por favor, envie o PDF para a pasta correta.")
-
-    # Esboço técnico
-    st.header("🗒️ Esboço Técnico")
-    st.subheader(conteudo["esboco"]["titulo"])
-    for topico in conteudo["esboco"]["topicos"]:
-        st.write(f"- {topico}")
-
-# --- Aba: Fé e Inspiração ---
-elif page == "Fé e Inspiração":
+# 1. Versículo da Semana
+with abas[0]:
     st.header("📖 Versículo da Semana")
-    st.markdown(f"**{conteudo['versiculo']['referencia']}**")
-    st.success(conteudo['versiculo']['texto'])
+    st.subheader(conteudo["versiculo"]["referencia"])
+    st.markdown(f"<div class='justificado'>{conteudo['versiculo']['texto']}</div>", unsafe_allow_html=True)
 
+# 2. Devocional
+with abas[1]:
     st.header("🙏 Devocional")
-    st.subheader(conteudo['devocional']['titulo'])
-    st.write(conteudo['devocional']['texto'])
+    st.subheader(conteudo["devocional"]["titulo"])
+    st.markdown(f"<div class='justificado'>{conteudo['devocional']['texto']}</div>", unsafe_allow_html=True)
 
-    st.header("🎯 Desafio Espiritual")
-    st.info(conteudo['desafio_espiritual'])
+    st.markdown("---")
+    st.subheader("📌 Desafio Espiritual")
+    st.markdown(f"<div class='justificado'>{conteudo['desafio_espiritual']}</div>", unsafe_allow_html=True)
 
-# --- Aba: Personagem da Semana ---
-elif page == "Personagem da Semana":
-    st.header(f"🧍 Personagem: {conteudo['personagem']['nome']}")
+# 3. Personagem Bíblico
+with abas[2]:
+    st.header("🧔‍♂️ Personagem Bíblico: " + conteudo["personagem"]["nome"])
+    
+    if "imagem" in conteudo["personagem"]:
+        st.image(conteudo["personagem"]["imagem"], caption=conteudo["personagem"]["nome"])
 
-    img_path = f"img/{conteudo['personagem']['nome'].lower()}.png"
-    if os.path.exists(img_path):
-        st.image(Image.open(img_path), width=300)
+    st.markdown("**Qualidades:** " + conteudo["personagem"]["qualidades"])
+    st.markdown("**Fraquezas:** " + conteudo["personagem"]["fraquezas"])
+    st.markdown(f"<div class='justificado'><strong>Lição:</strong> {conteudo['personagem']['lição']}</div>", unsafe_allow_html=True)
 
-    st.subheader("✅ Qualidades")
-    st.write(conteudo['personagem']['qualidades'])
-
-    st.subheader("⚠️ Fraquezas")
-    st.write(conteudo['personagem']['fraquezas'])
-
-    st.subheader("📌 Lição para hoje")
-    st.info(conteudo['personagem']['lição'])
-
-# --- Aba: Motivação e Reflexão ---
-elif page == "Motivação e Reflexão":
+# 4. Frase Motivacional
+with abas[3]:
     st.header("💬 Frase Motivacional")
-    st.success(conteudo['motivacional']['frase'])
+    st.markdown(f"<div class='justificado'><em>{conteudo['motivacional']['frase']}</em></div>", unsafe_allow_html=True)
 
-    st.header("📌 Reflexão para o dia a dia")
-    st.write(conteudo['reflexao'])
+# 5. Reflexão
+with abas[4]:
+    st.header("🤔 Reflexão")
+    st.markdown(f"<div class='justificado'>{conteudo['reflexao']}</div>", unsafe_allow_html=True)
 
-# --- Aba: Vida Profissional ---
-elif page == "Vida Profissional":
-    st.header("🚀 Dica Profissional")
-    st.write(conteudo['profissional']['dica'])
+# 6. Vida Profissional
+with abas[5]:
+    st.header("💼 Vida Profissional")
+    st.markdown(f"<div class='justificado'>{conteudo['profissional']['dica']}</div>", unsafe_allow_html=True)
 
-    st.header("📖 Versículo aplicado à carreira")
+    st.markdown("---")
+    st.subheader("📖 Versículo")
     st.markdown(f"**{conteudo['profissional']['versiculo_ref']}**")
-    st.info(conteudo['profissional']['versiculo_texto'])
+    st.markdown(f"<div class='justificado'>{conteudo['profissional']['versiculo_texto']}</div>", unsafe_allow_html=True)
 
-    st.header("🎯 Mini Desafio")
-    st.warning(conteudo['profissional']['desafio'])
+    st.markdown("---")
+    st.subheader("🎯 Desafio Profissional")
+    st.markdown(f"<div class='justificado'>{conteudo['profissional']['desafio']}</div>", unsafe_allow_html=True)
+
+# 7. Esboço Técnico
+with abas[6]:
+    st.header(conteudo["esboco"]["titulo"])
+    for topico in conteudo["esboco"]["topicos"]:
+        st.markdown(f"- {topico}")
