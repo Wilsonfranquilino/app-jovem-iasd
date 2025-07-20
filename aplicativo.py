@@ -5,12 +5,16 @@ import os
 
 st.set_page_config(page_title="Conectados na Lição - IASD Distrito Mantena", layout="wide")
 
-# Aviso sobre o menu lateral (especialmente para celulares)
+# Aviso sobre o menu lateral — melhor contraste para celular
 st.markdown(
-    "<div style='background-color:#f9f9f9;padding:10px;border-radius:5px;border-left:5px solid #2496ed;'>"
-    "<strong>👈 Navegue entre os conteúdos!</strong><br>"
-    "Use o menu lateral no símbolo <strong>‘>>’</strong> para acessar as seções do app."
-    "</div>",
+    """
+    <div style='background-color:#333333;padding:12px;border-radius:8px;margin-bottom:10px;'>
+        <span style='color:#ffffff;font-size:16px;'>
+            👈 <strong>Navegue entre os conteúdos!</strong><br>
+            No celular, use o símbolo <strong>‘>>’</strong> no canto superior para acessar o menu lateral.
+        </span>
+    </div>
+    """,
     unsafe_allow_html=True
 )
 
