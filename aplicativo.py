@@ -5,18 +5,20 @@ import os
 
 st.set_page_config(page_title="Conectados na Lição - IASD Distrito Mantena", layout="wide")
 
+# Aviso sobre o menu lateral (especialmente para celulares)
+st.markdown(
+    "<div style='background-color:#f9f9f9;padding:10px;border-radius:5px;border-left:5px solid #2496ed;'>"
+    "<strong>👈 Navegue entre os conteúdos!</strong><br>"
+    "Use o menu lateral no símbolo <strong>‘>>’</strong> para acessar as seções do app."
+    "</div>",
+    unsafe_allow_html=True
+)
+
 # Carregar conteúdo do JSON
 with open("data/conteudo_semana.json", "r", encoding="utf-8") as file:
     conteudo = json.load(file)
 
 st.title("🙌 Conectados na Lição - IASD Distrito Mantena")
-
-# Aviso para celulares sobre o menu lateral
-st.markdown("""
-<div style='background-color: #f0f2f6; padding: 10px; border-radius: 8px; font-size: 16px'>
-📱 <strong>Para celulares:</strong> Toque no <strong>menu ☰ no canto superior esquerdo</strong> para navegar entre as abas do aplicativo. 👉
-</div>
-""", unsafe_allow_html=True)
 
 # Menu lateral para navegação
 page = st.sidebar.radio(
