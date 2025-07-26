@@ -74,7 +74,7 @@ elif page == "Fé e Inspiração":
 elif page == "Personagem da Semana":
     st.header(f"🧍 Personagem: {conteudo['personagem']['nome']}")
 
-    img_path = f"img/{conteudo['personagem']['nome'].lower()}.png"
+    img_path = f"img/{conteudo['personagem']['nome'].lower().replace(' ', '_')}.png"
     if os.path.exists(img_path):
         st.image(Image.open(img_path), width=300)
 
